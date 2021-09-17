@@ -33,3 +33,5 @@ i=i+1; varNames{i} = 'Notes';   varTypes{i} = 'string';
 sz = [0 i];
 % new empty table
 GameActions = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
+
+clear sz i var*
