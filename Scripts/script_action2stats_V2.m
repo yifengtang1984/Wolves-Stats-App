@@ -1,7 +1,9 @@
 clear;
 
-datafile = "Data0909.mat";    % game play data file
-outfile  = "StatsTable0909";   % output file name for stats
+% datafile = "Data0909.mat";    % game play data file
+% outfile  = "StatsTable0909";   % output file name for stats
+datafile = "Practice0913Game22.mat";    % game play data file
+outfile  = "StatsTable0913G22";   % output file name for stats
 proj = matlab.project.currentProject;  % get proj info
 %% Load data
 
@@ -86,10 +88,10 @@ openvar('statsTable');
 save(strcat(proj.RootFolder,"\Stats\",outfile),"statsTable")
 
 % stats as excel file
-writetable(statsTable,strcat(proj.RootFolder,"\Stats\",outfile,'.xlsx'),'Sheet','Stats');
+writetable(statsTable,strcat(proj.RootFolder,"\Stats\",outfile,'.xlsx'),'Sheet','Stats','WriteMode','overwritesheet');
 
 % actions as excel file
-writetable(GameActions,strcat(proj.RootFolder,"\Stats\",outfile,'.xlsx'),'Sheet','Actions');
+writetable(GameActions,strcat(proj.RootFolder,"\Stats\",outfile,'.xlsx'),'Sheet','Actions','WriteMode','overwritesheet');
 
 %% clean up
 clear curr* i numPlayer var* sz statsEntries
