@@ -28,8 +28,11 @@ end
 % openmlapp('DataEntryV2');  % edit the App
 % DataEntryV2;  % run the App
 
-% openmlapp('DataEntryV2');  % edit the App
-DataEntryV3;  % run the App
+% openmlapp('DataEntryV3');  % edit the App
+% DataEntryV3;  % run the App
+
+% openmlapp('DataEntryV4');  % edit the App
+DataEntryV4;  % run the App
 
 %% clean up
 clear newTable filename
