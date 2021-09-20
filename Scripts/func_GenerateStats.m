@@ -41,13 +41,13 @@ function out = func_GenerateStats(filelist,outfile)
     currPlayer = statsTable.Player(i);
     currTable  = GameActions(GameActions.Player==currPlayer,:);
     curr2ptA   = sum(currTable.Action=="Shoot" & (contains(currTable.Detail1,"2") | contains(currTable.Detail1,"Close")));
-    curr2ptM   = sum(currTable.Action=="Shoot" & (contains(currTable.Detail1,"2") | contains(currTable.Detail1,"Close")) & currTable.Detail2=='made');
+    curr2ptM   = sum(currTable.Action=="Shoot" & (contains(currTable.Detail1,"2") | contains(currTable.Detail1,"Close")) & currTable.Detail2=='make');
     curr3ptA   = sum(currTable.Action=="Shoot" & contains(currTable.Detail1,"3"));
-    curr3ptM   = sum(currTable.Action=="Shoot" & contains(currTable.Detail1,"3") & currTable.Detail2=='made');
+    curr3ptM   = sum(currTable.Action=="Shoot" & contains(currTable.Detail1,"3") & currTable.Detail2=='make');
     currLayA   = sum(currTable.Action=="Shoot" & currTable.Detail1=="Layup");
-    currLayM   = sum(currTable.Action=="Shoot" & currTable.Detail1=="Layup" & currTable.Detail2=='made');
+    currLayM   = sum(currTable.Action=="Shoot" & currTable.Detail1=="Layup" & currTable.Detail2=='make');
     currFTA   = sum(currTable.Action=="Shoot" & currTable.Detail1=="FreeThrow");
-    currFTM   = sum(currTable.Action=="Shoot" & currTable.Detail1=="FreeThrow" & currTable.Detail2=='made');
+    currFTM   = sum(currTable.Action=="Shoot" & currTable.Detail1=="FreeThrow" & currTable.Detail2=='make');
     currPassR  = sum(currTable.Action=="Pass" & currTable.Detail1=="Regular");
     currPassT  = sum(currTable.Action=="Pass" & currTable.Detail1=="Threat");
     currPassM  = sum(currTable.Action=="Pass" & currTable.Detail1=="Missed");
