@@ -2,4 +2,5 @@
 
 proj = matlab.project.currentProject;  % get proj info
 
-DataEntryV4;
+% DataEntryV4;
+DataEntryV5;
