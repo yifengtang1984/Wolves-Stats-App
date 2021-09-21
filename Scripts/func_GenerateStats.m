@@ -85,13 +85,13 @@ function out = func_GenerateStats(filelist,outfile)
   %% Save stats Table
 
   % as a .mat file
-  save(strcat(proj.RootFolder,"\Stats\",outfile),"statsTable")
+  save(strcat(proj.RootFolder,"/Stats/",outfile),"statsTable")
 
   % stats as excel file
-  writetable(statsTable,strcat(proj.RootFolder,"\Stats\",outfile,'.xlsx'),'Sheet','Stats','WriteMode','overwritesheet');
+  writetable(statsTable,strcat(proj.RootFolder,"/Stats/",outfile,'.xlsx'),'Sheet','Stats','WriteMode','overwritesheet');
 
   % actions as excel file
-  writetable(GameActions,strcat(proj.RootFolder,"\Stats\",outfile,'.xlsx'),'Sheet','Actions','WriteMode','overwritesheet');
+  writetable(GameActions,strcat(proj.RootFolder,"/Stats/",outfile,'.xlsx'),'Sheet','Actions','WriteMode','overwritesheet');
 
   %% clean up
   clear curr* i numPlayer var* sz statsEntries tmp*

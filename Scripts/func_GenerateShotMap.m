@@ -111,7 +111,7 @@ function out = func_GenerateShotMap(filelist,outfile)
   h = plotShotT(Zone2CC,Make2CC,Miss2CC);
 
   %% save file
-  saveas(gcf,strcat(proj.RootFolder,"\Stats\",outfile,"Shots"),'png')
+  saveas(gcf,strcat(proj.RootFolder,"/Stats/",outfile,"Shots"),'png')
   
 end
 
