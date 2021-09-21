@@ -21,35 +21,26 @@ function out = func_GenerateShotMap(GameActions,Players,outfile)
     end
     
     % count shots
-    Make3C = sum(GameActions.Detail1 == "3Top" & GameActions.Detail2 == "make");
-    Miss3C = sum(GameActions.Detail1 == "3Top" & GameActions.Detail2 == "miss");
-    Make3LC = sum(GameActions.Detail1 == "3LC" & GameActions.Detail2 == "make");
-    Miss3LC = sum(GameActions.Detail1 == "3LC" & GameActions.Detail2 == "miss");
-    Make3RC = sum(GameActions.Detail1 == "3RC" & GameActions.Detail2 == "make");
-    Miss3RC = sum(GameActions.Detail1 == "3RC" & GameActions.Detail2 == "miss");
-    Make3LW = sum(GameActions.Detail1 == "3LW" & GameActions.Detail2 == "make");
-    Miss3LW = sum(GameActions.Detail1 == "3LW" & GameActions.Detail2 == "miss");
-    Make3RW = sum(GameActions.Detail1 == "3RW" & GameActions.Detail2 == "make");
-    Miss3RW = sum(GameActions.Detail1 == "3RW" & GameActions.Detail2 == "miss");
-    Make2LC = sum(GameActions.Detail1 == "2LongTop" & GameActions.Detail2 == "make");
-    Miss2LC = sum(GameActions.Detail1 == "2LongTop" & GameActions.Detail2 == "miss");
-    Make2LLC = sum(GameActions.Detail1 == "2LongLC" & GameActions.Detail2 == "make");
-    Miss2LLC = sum(GameActions.Detail1 == "2LongLC" & GameActions.Detail2 == "miss");
-    Make2LRC = sum(GameActions.Detail1 == "2LongRC" & GameActions.Detail2 == "make");
-    Miss2LRC = sum(GameActions.Detail1 == "2LongRC" & GameActions.Detail2 == "miss");
-    Make2LLW = sum(GameActions.Detail1 == "2LongLW" & GameActions.Detail2 == "make");
-    Miss2LLW = sum(GameActions.Detail1 == "2LongLW" & GameActions.Detail2 == "miss");
-    Make2LRW = sum(GameActions.Detail1 == "2LongRW" & GameActions.Detail2 == "make");
-    Miss2LRW = sum(GameActions.Detail1 == "2LongRW" & GameActions.Detail2 == "miss");
-    Make2SC = sum(GameActions.Detail1 == "2ShortTop" & GameActions.Detail2 == "make");
-    Miss2SC = sum(GameActions.Detail1 == "2ShortTop" & GameActions.Detail2 == "miss");
-    Make2SL = sum(GameActions.Detail1 == "2ShortL" & GameActions.Detail2 == "make");
-    Miss2SL = sum(GameActions.Detail1 == "2ShortL" & GameActions.Detail2 == "miss");
-    Make2SR = sum(GameActions.Detail1 == "2ShortR" & GameActions.Detail2 == "make");
-    Miss2SR = sum(GameActions.Detail1 == "2ShortR" & GameActions.Detail2 == "miss");
-    Make2CC = sum((GameActions.Detail1=="Close"|GameActions.Detail1=="Layup") & GameActions.Detail2 == "make");
-    Miss2CC = sum((GameActions.Detail1=="Close"|GameActions.Detail1=="Layup") & GameActions.Detail2 == "miss");
-
+    Make3T = sum(GameActions.Detail1 == "3 Top" & GameActions.Action == "Make Shot");
+    Miss3T = sum(GameActions.Detail1 == "3 Top" & GameActions.Action == "Miss Shot");
+    Make3LW = sum(GameActions.Detail1 == "3 Left Wing"    & GameActions.Action == "Make Shot");
+    Miss3LW = sum(GameActions.Detail1 == "3 Left Wing"    & GameActions.Action == "Miss Shot");
+    Make3LC = sum(GameActions.Detail1 == "3 Left Corner"  & GameActions.Action == "Make Shot");
+    Miss3LC = sum(GameActions.Detail1 == "3 Left Corner"  & GameActions.Action == "Miss Shot");
+    Make3RW = sum(GameActions.Detail1 == "3 Right Wing"   & GameActions.Action == "Make Shot");
+    Miss3RW = sum(GameActions.Detail1 == "3 Right Wing"   & GameActions.Action == "Miss Shot");
+    Make3RC = sum(GameActions.Detail1 == "3 Right Corner" & GameActions.Action == "Make Shot");
+    Miss3RC = sum(GameActions.Detail1 == "3 Right Corner" & GameActions.Action == "Miss Shot");
+    Make2LE = sum(GameActions.Detail1 == "2 Left Elbow"   & GameActions.Action == "Make Shot");
+    Miss2LE = sum(GameActions.Detail1 == "2 Left Elbow"   & GameActions.Action == "Miss Shot");
+    Make2LC = sum(GameActions.Detail1 == "2 Left Corner"  & GameActions.Action == "Make Shot");
+    Miss2LC = sum(GameActions.Detail1 == "2 Left Corner"  & GameActions.Action == "Miss Shot");
+    Make2RE = sum(GameActions.Detail1 == "2 Right Elbow"  & GameActions.Action == "Make Shot");
+    Miss2RE = sum(GameActions.Detail1 == "2 Right Elbow"  & GameActions.Action == "Miss Shot");
+    Make2RC = sum(GameActions.Detail1 == "2 Right Corner" & GameActions.Action == "Make Shot");
+    Miss2RC = sum(GameActions.Detail1 == "2 Right Corner" & GameActions.Action == "Miss Shot");
+    Make2LU = sum((GameActions.Detail1=="Close"|GameActions.Detail1=="Layup") & GameActions.Action == "Make Shot");
+    Miss2LU = sum((GameActions.Detail1=="Close"|GameActions.Detail1=="Layup") & GameActions.Action == "Miss Shot");
 
     % draw court & shot zones
     figure(100+i); clf;
@@ -58,61 +49,45 @@ function out = func_GenerateShotMap(GameActions,Players,outfile)
     h = drawCourt(100+i);
     text(700,100,Player,'Interpreter','none','FontSize',20,'HorizontalAlignment','right')
 
-    % 3pt center
-    Zone3C  = [0 500]; 
-    h = plotShotT(Zone3C,Make3C,Miss3C);
-
-    % 3pt left corner
-    Zone3LC  = [-700 1200]; 
-    h = plotShotC(Zone3LC,Make3LC,Miss3LC);
-
-    % 3pt right corner
-    Zone3RC  = [ 700 1200]; 
-    h = plotShotC(Zone3RC,Make3RC,Miss3RC);
+    % 3pt top
+    Zone3T  = [0 500]; 
+    h = plotShotT(Zone3T,Make3T,Miss3T);
 
     % 3pt left wing
     Zone3LW  = [-500 700]; 
     h = plotShotW(Zone3LW,Make3LW,Miss3LW);
 
+    % 3pt left corner
+    Zone3LC  = [-700 1200]; 
+    h = plotShotC(Zone3LC,Make3LC,Miss3LC);
+
     % 3pt right wing
     Zone3RW  = [500 700]; 
     h = plotShotW(Zone3RW,Make3RW,Miss3RW);
 
-    % 2pt long center
-    Zone2LC = [0 720]; 
-    h = plotShotT(Zone2LC,Make2LC,Miss2LC);
+    % 3pt right corner
+    Zone3RC  = [ 700 1200]; 
+    h = plotShotC(Zone3RC,Make3RC,Miss3RC);
 
-    % 2pt long left corner
-    Zone2LLC  = [-500 1200]; 
-    h = plotShotC(Zone2LLC,Make2LLC,Miss2LLC);
+    % 2pt left elbow
+    Zone2LE = [-250 800]; 
+    h = plotShotT(Zone2LE,Make2LE,Miss2LE);
 
-    % 2pt long right corner
-    Zone2LRC  = [ 500 1200]; 
-    h = plotShotC(Zone2LRC,Make2LRC,Miss2LRC);
+    % 2pt left corner
+    Zone2LC  = [-450 1200]; 
+    h = plotShotC(Zone2LC,Make2LC,Miss2LC);
 
-    % 2pt long left wing
-    Zone2LLW  = [-400 900]; 
-    h = plotShotW(Zone2LLW,Make2LLW,Miss2LLW);
+    % 2pt right elbow
+    Zone2RE = [250 800]; 
+    h = plotShotT(Zone2RE,Make2RE,Miss2RE);
 
-    % 2pt long right wing
-    Zone2LRW  = [ 400 900]; 
-    h = plotShotW(Zone2LRW,Make2LRW,Miss2LRW);
-
-    % 2pt short center
-    Zone2SC = [0 950]; 
-    h = plotShotT(Zone2SC,Make2SC,Miss2SC);
-
-    % 2pt short left corner
-    Zone2SL  = [-300 1200]; 
-    h = plotShotC(Zone2SL,Make2SL,Miss2SL);
-
-    % 2pt short right corner
-    Zone2SR  = [ 300 1200]; 
-    h = plotShotC(Zone2SR,Make2SR,Miss2SR);
+    % 2pt right corner
+    Zone2RC  = [450 1200]; 
+    h = plotShotC(Zone2RC,Make2RC,Miss2RC);
 
     % 2pt close center
-    Zone2CC = [0 1150]; 
-    h = plotShotT(Zone2CC,Make2CC,Miss2CC);
+    Zone2LU = [0 1150]; 
+    h = plotShotT(Zone2LU,Make2LU,Miss2LU);
 
     %% save file
     saveas(gcf,strcat(proj.RootFolder,"/Stats/",outfile,"Shots_",Player),'png')

@@ -1,31 +1,30 @@
-function out = func_GenerateStats(filelist,outfile)
+function out = func_GenerateStats(GameActions,outfile)
 % generates stats files from actions data
 %   filelist: list of game action files
 %   outfile : name of output stats file
 
   proj = matlab.project.currentProject;  % get proj info
-
-  %% Load data
-  n = length(filelist);
-  load(filelist{1});
-  tmpActions = GameActions;
-  
-  for i = 2:n
-    load(filelist{i})
-    tmpActions = [tmpActions; GameActions];  %#ok<AGROW>
-  end
-  GameActions = tmpActions;
   varPlayer = unique(GameActions.Player);
   
   %% Initialize stats table
 
-  statsEntries = ["2pt","3pt","Layup","FT", ...
-                  "Regular Pass", "Threat Pass", "Missed Pass", ...
-                  "shot allowed", "shot contested", ...
-                  "Def Reb", "Off Reb", ...
-                  "Assist", "Turnover", ...
-                  "Steal", "Block", ...
-                  "Off-Ball Screen", "Screen Assist"];
+  statsEntries = ["2pt", ...
+                  "3pt", ...
+                  "Layup", ...
+                  "FT", ...
+                  "Regular Pass", ...
+                  "Threat Pass", ...
+                  "Missed Pass", ...
+                  "shot allowed", ...
+                  "shot contested", ...
+                  "Def Reb", ...
+                  "Off Reb", ...
+                  "Assist", ...
+                  "Turnover", ...
+                  "Steal", ...
+                  "Block", ...
+                  "Off-Ball Screen", ...
+                  "Screen Assist"];
 
   sz = [length(varPlayer) length(statsEntries)+1];
   varTypes = ["string",repmat("string",1,4),repmat("double",1,length(statsEntries)-4)];
@@ -40,14 +39,14 @@ function out = func_GenerateStats(filelist,outfile)
   for i = 1:numPlayer
     currPlayer = statsTable.Player(i);
     currTable  = GameActions(GameActions.Player==currPlayer,:);
-    curr2ptA   = sum(currTable.Action=="Shoot" & (contains(currTable.Detail1,"2") | contains(currTable.Detail1,"Close")));
-    curr2ptM   = sum(currTable.Action=="Shoot" & (contains(currTable.Detail1,"2") | contains(currTable.Detail1,"Close")) & currTable.Detail2=='make');
-    curr3ptA   = sum(currTable.Action=="Shoot" & contains(currTable.Detail1,"3"));
-    curr3ptM   = sum(currTable.Action=="Shoot" & contains(currTable.Detail1,"3") & currTable.Detail2=='make');
-    currLayA   = sum(currTable.Action=="Shoot" & currTable.Detail1=="Layup");
-    currLayM   = sum(currTable.Action=="Shoot" & currTable.Detail1=="Layup" & currTable.Detail2=='make');
-    currFTA   = sum(currTable.Action=="Shoot" & currTable.Detail1=="FreeThrow");
-    currFTM   = sum(currTable.Action=="Shoot" & currTable.Detail1=="FreeThrow" & currTable.Detail2=='make');
+    curr2ptO   = sum(currTable.Action=="Make Shot" & (contains(currTable.Detail1,"2") | contains(currTable.Detail1,"Close")));
+    curr2ptX   = sum(currTable.Action=="Miss Shot" & (contains(currTable.Detail1,"2") | contains(currTable.Detail1,"Close")));
+    curr3ptO   = sum(currTable.Action=="Make Shot" & contains(currTable.Detail1,"3"));
+    curr3ptX   = sum(currTable.Action=="Miss Shot" & contains(currTable.Detail1,"3"));
+    currLayO   = sum(currTable.Action=="Make Shot" & currTable.Detail1=="Layup");
+    currLayX   = sum(currTable.Action=="Miss Shot" & currTable.Detail1=="Layup");
+    currFTO    = sum(currTable.Action=="Make Shot" & currTable.Detail1=="FreeThrow");
+    currFTX    = sum(currTable.Action=="Miss Shot" & currTable.Detail1=="FreeThrow");
     currPassR  = sum(currTable.Action=="Pass" & currTable.Detail1=="Regular");
     currPassT  = sum(currTable.Action=="Pass" & currTable.Detail1=="Threat");
     currPassM  = sum(currTable.Action=="Pass" & currTable.Detail1=="Missed");
@@ -62,10 +61,10 @@ function out = func_GenerateStats(filelist,outfile)
     currOBScr  = sum(currTable.Action=="Other" & currTable.Detail1=="Off-ball screen");
     currScrAss = sum(currTable.Action=="Other" & currTable.Detail1=="Screen assist");
     currEntry  = statsTable(statsTable.Player == currPlayer,:);
-    currEntry(1,2)  = { strcat(num2str(curr2ptM)," / ",num2str(curr2ptA)) };
-    currEntry(1,3)  = { strcat(num2str(curr3ptM)," / ",num2str(curr3ptA)) };
-    currEntry(1,4)  = { strcat(num2str(currLayM)," / ",num2str(currLayA)) };
-    currEntry(1,5)  = { strcat(num2str(currFTM) ," / ",num2str(currFTA))  };
+    currEntry(1,2)  = { strcat(num2str(curr2ptO)," / ",num2str(curr2ptO+curr2ptX)) };
+    currEntry(1,3)  = { strcat(num2str(curr3ptO)," / ",num2str(curr3ptO+curr3ptX)) };
+    currEntry(1,4)  = { strcat(num2str(currLayO)," / ",num2str(currLayO+currLayX)) };
+    currEntry(1,5)  = { strcat(num2str(currFTO) ," / ",num2str(currFTO +currFTX )) };
     currEntry(1,6)  = { currPassR };
     currEntry(1,7)  = { currPassT };
     currEntry(1,8)  = { currPassM };
@@ -92,6 +91,8 @@ function out = func_GenerateStats(filelist,outfile)
 
   % actions as excel file
   writetable(GameActions,strcat(proj.RootFolder,"/Stats/",outfile,'.xlsx'),'Sheet','Actions','WriteMode','overwritesheet');
+  winopen(strcat(proj.RootFolder,"/Stats/",outfile,'.xlsx'));
+
 
   %% clean up
   clear curr* i numPlayer var* sz statsEntries tmp*
