@@ -30,6 +30,7 @@ i=i+1; varNames{i} = 'Action';  varTypes{i} = 'string';
 i=i+1; varNames{i} = 'Detail1'; varTypes{i} = 'string';
 i=i+1; varNames{i} = 'Detail2'; varTypes{i} = 'string';
 i=i+1; varNames{i} = 'Notes';   varTypes{i} = 'string';
+i=i+1; varNames{i} = 'id';      varTypes{i} = 'double';
 sz = [0 i];
 % new empty table
 GameActions = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
