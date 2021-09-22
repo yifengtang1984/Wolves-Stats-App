@@ -8,7 +8,8 @@ function out = func_GenerateStats(GameActions,outfile)
   
   %% Initialize stats table
 
-  statsEntries = ["2pt", ...
+  statsEntries = ["PTS", ...
+                  "2pt", ...
                   "3pt", ...
                   "Layup", ...
                   "FT", ...
@@ -27,7 +28,7 @@ function out = func_GenerateStats(GameActions,outfile)
                   "Screen Assist"];
 
   sz = [length(varPlayer) length(statsEntries)+1];
-  varTypes = ["string",repmat("string",1,4),repmat("double",1,length(statsEntries)-4)];
+  varTypes = ["string","double",repmat("string",1,4),repmat("double",1,length(statsEntries)-5)];
   statsTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',["Player" statsEntries]);
   statsTable.Player = varPlayer;  
   
@@ -47,6 +48,7 @@ function out = func_GenerateStats(GameActions,outfile)
     currLayX   = sum(currTable.Action=="Miss Shot" & currTable.Detail1=="Layup");
     currFTO    = sum(currTable.Action=="Make Shot" & currTable.Detail1=="FreeThrow");
     currFTX    = sum(currTable.Action=="Miss Shot" & currTable.Detail1=="FreeThrow");
+    currPTS    = curr3ptO*3 + curr2ptO*2 + currLayO*2 + currFTO*1; 
     currPassR  = sum(currTable.Action=="Pass" & currTable.Detail1=="Regular");
     currPassT  = sum(currTable.Action=="Pass" & currTable.Detail1=="Threat");
     currPassM  = sum(currTable.Action=="Pass" & currTable.Detail1=="Missed");
@@ -61,23 +63,25 @@ function out = func_GenerateStats(GameActions,outfile)
     currOBScr  = sum(currTable.Action=="Other" & currTable.Detail1=="Off-ball screen");
     currScrAss = sum(currTable.Action=="Other" & currTable.Detail1=="Screen assist");
     currEntry  = statsTable(statsTable.Player == currPlayer,:);
-    currEntry(1,2)  = { strcat(num2str(curr2ptO)," / ",num2str(curr2ptO+curr2ptX)) };
-    currEntry(1,3)  = { strcat(num2str(curr3ptO)," / ",num2str(curr3ptO+curr3ptX)) };
-    currEntry(1,4)  = { strcat(num2str(currLayO)," / ",num2str(currLayO+currLayX)) };
-    currEntry(1,5)  = { strcat(num2str(currFTO) ," / ",num2str(currFTO +currFTX )) };
-    currEntry(1,6)  = { currPassR };
-    currEntry(1,7)  = { currPassT };
-    currEntry(1,8)  = { currPassM };
-    currEntry(1,9)  = { currShotA };
-    currEntry(1,10) = { currShotC };
-    currEntry(1,11) = { currDefReb };
-    currEntry(1,12) = { currOffReb };
-    currEntry(1,13) = { currAssist };
-    currEntry(1,14) = { currTO };
-    currEntry(1,15) = { currSteal };
-    currEntry(1,16) = { currBlock };
-    currEntry(1,17) = { currOBScr };
-    currEntry(1,18) = { currScrAss };
+    j=1;
+    j=j+1; currEntry(1,j)  = { currPTS };
+    j=j+1; currEntry(1,j)  = { strcat(num2str(curr2ptO)," / ",num2str(curr2ptO+curr2ptX)) };
+    j=j+1; currEntry(1,j)  = { strcat(num2str(curr3ptO)," / ",num2str(curr3ptO+curr3ptX)) };
+    j=j+1; currEntry(1,j)  = { strcat(num2str(currLayO)," / ",num2str(currLayO+currLayX)) };
+    j=j+1; currEntry(1,j)  = { strcat(num2str(currFTO) ," / ",num2str(currFTO +currFTX )) };
+    j=j+1; currEntry(1,j)  = { currPassR };
+    j=j+1; currEntry(1,j)  = { currPassT };
+    j=j+1; currEntry(1,j)  = { currPassM };
+    j=j+1; currEntry(1,j)  = { currShotA };
+    j=j+1; currEntry(1,j) = { currShotC };
+    j=j+1; currEntry(1,j) = { currDefReb };
+    j=j+1; currEntry(1,j) = { currOffReb };
+    j=j+1; currEntry(1,j) = { currAssist };
+    j=j+1; currEntry(1,j) = { currTO };
+    j=j+1; currEntry(1,j) = { currSteal };
+    j=j+1; currEntry(1,j) = { currBlock };
+    j=j+1; currEntry(1,j) = { currOBScr };
+    j=j+1; currEntry(1,j) = { currScrAss };
     statsTable(i,:) = currEntry;
   end
   
