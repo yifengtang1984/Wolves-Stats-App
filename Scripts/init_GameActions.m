@@ -17,6 +17,11 @@ i=i+1; varNames{i} = 'Teammate2';   varTypes{i} = 'string';
 i=i+1; varNames{i} = 'Teammate3';   varTypes{i} = 'string';
 i=i+1; varNames{i} = 'Teammate4';   varTypes{i} = 'string';
 i=i+1; varNames{i} = 'Teammate5';   varTypes{i} = 'string';
+i=i+1; varNames{i} = 'Opponent1';   varTypes{i} = 'string';
+i=i+1; varNames{i} = 'Opponent2';   varTypes{i} = 'string';
+i=i+1; varNames{i} = 'Opponent3';   varTypes{i} = 'string';
+i=i+1; varNames{i} = 'Opponent4';   varTypes{i} = 'string';
+i=i+1; varNames{i} = 'Opponent5';   varTypes{i} = 'string';
 sz = [0 i];
 % new empty table
 GameActions = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
