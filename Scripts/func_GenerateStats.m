@@ -5,6 +5,40 @@ function out = func_GenerateStats(GameActions,outfile)
 
 %% set up stuff
     proj = matlab.project.currentProject;  % get proj info
+
+    numActions = height(GameActions);
+    for i = 1:numActions
+      if strcmp(GameActions.Teammate1(i),"")
+        GameActions.Teammate1(i) = "Nobody";
+      end
+      if strcmp(GameActions.Teammate2(i),"")
+        GameActions.Teammate2(i) = "Nobody";
+      end
+      if strcmp(GameActions.Teammate3(i),"")
+        GameActions.Teammate3(i) = "Nobody";
+      end
+      if strcmp(GameActions.Teammate4(i),"")
+        GameActions.Teammate4(i) = "Nobody";
+      end
+      if strcmp(GameActions.Teammate5(i),"")
+        GameActions.Teammate5(i) = "Nobody";
+      end
+      if strcmp(GameActions.Opponent1(i),"")
+        GameActions.Opponent1(i) = "Nobody";
+      end
+      if strcmp(GameActions.Opponent2(i),"")
+        GameActions.Opponent2(i) = "Nobody";
+      end
+      if strcmp(GameActions.Opponent3(i),"")
+        GameActions.Opponent3(i) = "Nobody";
+      end
+      if strcmp(GameActions.Opponent4(i),"")
+        GameActions.Opponent4(i) = "Nobody";
+      end
+      if strcmp(GameActions.Opponent5(i),"")
+        GameActions.Opponent5(i) = "Nobody";
+      end
+    end
     
     % player names
     varPlayers = unique([GameActions.Teammate1; GameActions.Teammate2; ...
