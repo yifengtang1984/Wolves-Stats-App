@@ -15,7 +15,7 @@ function out = func_GenerateShotMap(GameActions,Players,outfile)
 
     Player = Players{i};
     if Player == "All"
-      GameActions = allActions;
+      GameActions = allActions(allActions.Player~="Nobody",:);
     else
       GameActions = allActions(allActions.Player==Player,:);
     end
