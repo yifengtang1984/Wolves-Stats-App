@@ -286,7 +286,9 @@ function out = func_GenerateStats(GameActions,outfile)
 
     % clean up
     % clear curr* i j num* var* sz statsEntries tmp* StatsPlayer StatsEmpty
-    out = [];
+
+    % write StatsPlayer to workspace
+    out = StatsPlayer;
 
 end
 
